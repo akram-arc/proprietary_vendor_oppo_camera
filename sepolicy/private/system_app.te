@@ -1,0 +1,4 @@
+# Settings / SystemUI (system_app) read the ro.camera.* feature flags to decide
+# which camera options to expose, and toggle the persist.oppo.camera.* switches
+# the camera app picks up on next launch.
+set_prop(system_app, oplus_camera_prop)

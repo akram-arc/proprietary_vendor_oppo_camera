@@ -1,0 +1,14 @@
+# Camera slogan (watermark) HAL service.
+# camera-vendor.mk installs the .rc to $(TARGET_COPY_OUT_ODM)/etc/init and the
+# implementation to /odm/lib64/hw, so match both partitions.
+/(vendor|odm)/bin/hw/camerasloganserver                                     u:object_r:hal_opluscameraslogan_exec:s0
+
+# HIDL interface library for the slogan HAL.  com.oppo.camera bundles
+# libOppoSloganClient.so, which links this in-process, so the app's domain has
+# to be able to map and execute it (appdomain already gets
+# same_process_hal_file:file { execute read open getattr map } from AOSP).
+#
+# Stock also ships a /system_ext/lib(64)/ copy, which is what the app actually
+# links there; labelling the odm copy keeps the client working if only the odm
+# copy is extracted and exposed via public.libraries.
+/(vendor|odm)/lib(64)?/vendor\.oplus\.hardware\.camera\.slogan@1\.0\.so     u:object_r:same_process_hal_file:s0

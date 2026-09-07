@@ -1,0 +1,2 @@
+# Camera slogan (watermark) HAL
+vendor.oplus.hardware.camera.slogan::ISlogan            u:object_r:hal_slogan_hwservice:s0

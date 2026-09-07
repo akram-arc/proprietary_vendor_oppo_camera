@@ -1,0 +1,232 @@
+diff --git a/services/camera/libcameraservice/common/CameraProviderManager.cpp b/services/camera/libcameraservice/common/CameraProviderManager.cpp
+index 1243a201e3..007634052d 100644
+--- a/services/camera/libcameraservice/common/CameraProviderManager.cpp
++++ b/services/camera/libcameraservice/common/CameraProviderManager.cpp
+@@ -2020,6 +2020,198 @@ status_t CameraProviderManager::ProviderInfo::DeviceInfo3::addPreCorrectionActiv
+     return res;
+ }
+ 
++status_t CameraProviderManager::ProviderInfo::DeviceInfo3::addHighResJpegTags() {
++    static const uint32_t kOplusRearHighPictureSize = 0x80120024;
++
++    auto& c = mCameraCharacteristics;
++
++    camera_metadata_entry facing = c.find(ANDROID_LENS_FACING);
++    if (facing.count != 1) {
++        return OK;
++    }
++
++    const bool isFront =
++            facing.data.u8[0] == ANDROID_LENS_FACING_FRONT;
++
++    // List of JPEG sizes that should be advertised.
++    std::vector<std::pair<int32_t, int32_t>> jpegSizes;
++
++    if (isFront) {
++        // Front camera stock JPEG configurations.
++        jpegSizes.emplace_back(4608, 3456);
++        jpegSizes.emplace_back(4608, 2592);
++        jpegSizes.emplace_back(4480, 2016);
++        jpegSizes.emplace_back(3456, 3456);
++    } else {
++        // Rear camera high-resolution JPEG.
++        camera_metadata_entry hiRes =
++                c.find(kOplusRearHighPictureSize);
++
++        if (hiRes.count == 2) {
++            const int32_t w = hiRes.data.i32[0];
++            const int32_t h = hiRes.data.i32[1];
++
++            if (w > 0 && h > 0) {
++                jpegSizes.emplace_back(w, h);
++            }
++        }
++
++        // Rear camera normal/full-resolution JPEG.
++        jpegSizes.emplace_back(4608, 3456);
++    }
++
++    camera_metadata_entry cfgs =
++            c.find(ANDROID_SCALER_AVAILABLE_STREAM_CONFIGURATIONS);
++
++    if (cfgs.count == 0 || (cfgs.count % 4) != 0) {
++        ALOGE("%s: Unexpected availableStreamConfigurations count %zu",
++                __FUNCTION__, cfgs.count);
++        return BAD_VALUE;
++    }
++
++    std::vector<int32_t> newCfgs;
++    newCfgs.reserve(cfgs.count + jpegSizes.size() * 4);
++
++    newCfgs.insert(
++            newCfgs.end(),
++            cfgs.data.i32,
++            cfgs.data.i32 + cfgs.count);
++
++    std::vector<std::pair<int32_t, int32_t>> sizesToAdd;
++
++    // Only add sizes which aren't already advertised.
++    for (const auto& size : jpegSizes) {
++        const int32_t w = size.first;
++        const int32_t h = size.second;
++
++        bool alreadyPresent = false;
++
++        for (size_t i = 0; i < cfgs.count; i += 4) {
++            if (cfgs.data.i32[i] == HAL_PIXEL_FORMAT_BLOB &&
++                    cfgs.data.i32[i + 1] == w &&
++                    cfgs.data.i32[i + 2] == h &&
++                    cfgs.data.i32[i + 3] ==
++                            ANDROID_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_OUTPUT) {
++                alreadyPresent = true;
++                break;
++            }
++        }
++
++        if (!alreadyPresent) {
++            sizesToAdd.emplace_back(w, h);
++
++            newCfgs.push_back(HAL_PIXEL_FORMAT_BLOB);
++            newCfgs.push_back(w);
++            newCfgs.push_back(h);
++            newCfgs.push_back(
++                    ANDROID_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_OUTPUT);
++        }
++    }
++
++    // Nothing new to advertise.
++    if (sizesToAdd.empty()) {
++        return OK;
++    }
++
++    status_t res = c.update(
++            ANDROID_SCALER_AVAILABLE_STREAM_CONFIGURATIONS,
++            newCfgs.data(),
++            newCfgs.size());
++
++    if (res != OK) {
++        ALOGE("%s: Failed to update availableStreamConfigurations: %s (%d)",
++                __FUNCTION__, strerror(-res), res);
++        return res;
++    }
++
++    // Add matching frame/stall duration entries.
++    const int64_t kDurationNs = 200000000LL;  // 5 fps
++
++    const uint32_t durationTags[] = {
++        ANDROID_SCALER_AVAILABLE_MIN_FRAME_DURATIONS,
++        ANDROID_SCALER_AVAILABLE_STALL_DURATIONS,
++    };
++
++    for (uint32_t tag : durationTags) {
++        camera_metadata_entry e = c.find(tag);
++
++        std::vector<int64_t> v;
++        v.reserve(e.count + sizesToAdd.size() * 4);
++
++        if (e.count > 0) {
++            v.insert(
++                    v.end(),
++                    e.data.i64,
++                    e.data.i64 + e.count);
++        }
++
++        for (const auto& size : sizesToAdd) {
++            v.push_back(HAL_PIXEL_FORMAT_BLOB);
++            v.push_back(size.first);
++            v.push_back(size.second);
++            v.push_back(kDurationNs);
++        }
++
++        res = c.update(tag, v.data(), v.size());
++
++        if (res != OK) {
++            ALOGE("%s: Failed to update duration tag %u: %s (%d)",
++                    __FUNCTION__, tag, strerror(-res), res);
++            return res;
++        }
++    }
++
++    // Make sure JPEG buffers are large enough for the largest newly
++    // advertised resolution.
++    int64_t maxNeeded64 = 0;
++
++    for (const auto& size : sizesToAdd) {
++        const int64_t needed =
++                static_cast<int64_t>(size.first) *
++                static_cast<int64_t>(size.second) * 3 / 2;
++
++        if (needed > maxNeeded64) {
++            maxNeeded64 = needed;
++        }
++    }
++
++    if (maxNeeded64 > INT32_MAX) {
++        ALOGE("%s: JPEG size calculation overflow",
++                __FUNCTION__);
++        return BAD_VALUE;
++    }
++
++    camera_metadata_entry maxSize =
++            c.find(ANDROID_JPEG_MAX_SIZE);
++
++    const int32_t needed = static_cast<int32_t>(maxNeeded64);
++
++    if (maxSize.count == 1 && maxSize.data.i32[0] < needed) {
++        res = c.update(
++                ANDROID_JPEG_MAX_SIZE,
++                &needed,
++                1);
++
++        if (res != OK) {
++            ALOGE("%s: Failed to update ANDROID_JPEG_MAX_SIZE: %s (%d)",
++                    __FUNCTION__, strerror(-res), res);
++            return res;
++        }
++    }
++
++    for (const auto& size : sizesToAdd) {
++        ALOGI("%s: %s camera: Advertised JPEG %dx%d",
++                __FUNCTION__,
++                isFront ? "front" : "rear",
++                size.first,
++                size.second);
++    }
++
++    return OK;
++}
++
++
++
+ status_t CameraProviderManager::ProviderInfo::DeviceInfo3::addReadoutTimestampTag(
+         bool readoutTimestampSupported) {
+     status_t res = OK;
+diff --git a/services/camera/libcameraservice/common/CameraProviderManager.h b/services/camera/libcameraservice/common/CameraProviderManager.h
+index 40a4254725..d9cc5a8065 100644
+--- a/services/camera/libcameraservice/common/CameraProviderManager.h
++++ b/services/camera/libcameraservice/common/CameraProviderManager.h
+@@ -795,6 +795,7 @@ private:
+             status_t addRotateCropTags();
+             status_t addAutoframingTags();
+             status_t addPreCorrectionActiveArraySize();
++            status_t addHighResJpegTags();
+             status_t addReadoutTimestampTag(bool readoutTimestampSupported = true);
+             status_t addColorCorrectionAvailableModesTag(CameraMetadata& ch);
+             status_t addAePriorityModeTags();
+diff --git a/services/camera/libcameraservice/common/hidl/HidlProviderInfo.cpp b/services/camera/libcameraservice/common/hidl/HidlProviderInfo.cpp
+index 529eaa9361..fc60b61546 100644
+--- a/services/camera/libcameraservice/common/hidl/HidlProviderInfo.cpp
++++ b/services/camera/libcameraservice/common/hidl/HidlProviderInfo.cpp
+@@ -696,6 +696,12 @@ HidlProviderInfo::HidlDeviceInfo3::HidlDeviceInfo3(
+         }
+     }
+ 
++    res = addHighResJpegTags();
++    if (OK != res) {
++        ALOGE("%s: Unable to add high-resolution JPEG tags: %s (%d)",
++                        __FUNCTION__, strerror(-res), res);
++        }
++
+     camera_metadata_entry flashAvailable =
+             mCameraCharacteristics.find(ANDROID_FLASH_INFO_AVAILABLE);
+     if (flashAvailable.count == 1 &&

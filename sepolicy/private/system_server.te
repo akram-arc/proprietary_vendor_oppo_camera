@@ -1,0 +1,5 @@
+# oplus-services.jar / main-services.jar are loaded into system_server as
+# PRODUCT_BOOT_JARS.  They mediate camera state for com.oppo.camera - screen
+# flash brightness, the record-conflict flag and the raw-capture whitelist - so
+# system_server both reads and writes the camera property namespace.
+set_prop(system_server, oplus_camera_prop)

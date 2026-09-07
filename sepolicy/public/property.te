@@ -1,0 +1,13 @@
+# Camera state shared between com.oppo.camera, the OPLUS framework jars
+# (oplus-framework / main-services running in system_server) and the native
+# camera stack.
+#
+# system_public_prop (not system_internal_prop) because camerahalserver and
+# camerasloganserver are vendor domains and have to read these:
+#   - oppo.camera.packname     tells the HAL which package is the system camera
+#   - oplus.camera.slogan.*    handshake with the slogan HAL
+#   - oppo.dump.* / oppo.debug.*  per-capture debug switches read in the pipeline
+#
+# Only coredomain writers are granted 'set' (see ../private/*.te); vendor gets
+# read access only, matching stock.
+system_public_prop(oplus_camera_prop)

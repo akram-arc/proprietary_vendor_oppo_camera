@@ -1,0 +1,13 @@
+# Vendor-owned property type for the OPLUS camera stack.
+#
+# vendor_restricted_prop: readable everywhere (via MediaTek's
+# get_prop(domain, mtk_core_property_type)), writable only from /vendor.
+# camerahalserver both reads and writes these, mirroring stock, where they were
+# mapped onto vendor_oppo_prop.
+vendor_restricted_prop(vendor_oplus_camera_prop)
+
+# The MediaTek base policy grants every domain read access to anything carrying
+# mtk_core_property_type (base/vendor/domain.te), which is how the stock
+# vendor_oppo_prop behaved.  Keep the same shape so the app and the framework
+# jars can read the vendor-side camera flags without per-domain grants.
+typeattribute vendor_oplus_camera_prop mtk_core_property_type;

@@ -1,0 +1,74 @@
+# OPPO/OPLUS camera properties owned by /system_ext.
+#
+# Vendor-namespaced camera properties (vendor.oppo.camera.*, ...) live in
+# ../vendor/property_contexts instead - vendor_property_contexts is checked by
+# check_prop_prefix and may only carry vendor./ro.vendor./persist.vendor./odm.
+# prefixes.
+#
+# NOTE: vendor.debug.camera.* is intentionally absent - MediaTek already labels
+# that prefix as vendor_mtk_emcamera_prop in
+# device/mediatek/sepolicy_vndr/base/vendor/property_contexts, and a second
+# label for the same prefix is a property_info_checker failure.
+
+# ---------------------------------------------------------------------------
+# Read-only feature flags (set from build.prop by init, read by the app, the
+# OPLUS framework jars and camerahalserver).
+# AOSP already claims ro.camera.<name> for a handful of names as 'exact'
+# matches (camera_config_prop); exact entries win over this prefix, so the two
+# coexist.  Listed individually anyway to stay out of AOSP's namespace.
+# ---------------------------------------------------------------------------
+ro.camera.dualcam.type                          u:object_r:oplus_camera_prop:s0
+ro.camera.hfr.enable                            u:object_r:oplus_camera_prop:s0
+ro.camera.high.resolution.video.filter.enable   u:object_r:oplus_camera_prop:s0
+ro.camera.portrait.blur.level.enable            u:object_r:oplus_camera_prop:s0
+ro.camera.temperature.limit                     u:object_r:oplus_camera_prop:s0
+ro.camera.videoeis.enable                       u:object_r:oplus_camera_prop:s0
+ro.mtk_cam_dualzoom_support                     u:object_r:oplus_camera_prop:s0
+ro.mtk_cam_stereo_camera_support                u:object_r:oplus_camera_prop:s0
+ro.oplus.system.camera.name                     u:object_r:oplus_camera_prop:s0
+
+# ---------------------------------------------------------------------------
+# Capture-session state written by com.oppo.camera and read by the framework
+# jars / cameraserver / camerahalserver.
+#   oppo.camera.packname, oppo.camera.eis.enable, oppo.camera.delay,
+#   oppo.camera.switch.time, oppo.camera.fingerprint.shutter, oppo.cam.*,
+#   oplus.camera.exit, oplus.camera.flash, oplus.camera.brightness,
+#   oplus.camera.video, oplus.camera.slogan.yuvpath, ...
+# ---------------------------------------------------------------------------
+oppo.camera.                                    u:object_r:oplus_camera_prop:s0
+oppo.cam.                                       u:object_r:oplus_camera_prop:s0
+oplus.camera.                                   u:object_r:oplus_camera_prop:s0
+persist.oppo.camera.                            u:object_r:oplus_camera_prop:s0
+sys.oppo.camera.                                u:object_r:oplus_camera_prop:s0
+
+# ---------------------------------------------------------------------------
+# Per-capture debug / raw-dump switches.  Read by the app and by the native
+# post-processing plugins inside camerahalserver, so they need a real label
+# rather than falling back to default_prop.
+#   oppo.dump.night.raw.enable, oppo.dump.preview.yuv, oppo.dump.slogan.png,
+#   oppo.dump.pano.yuv, oppo.dump.postview.yuv, oplus.dump.starry.raw.enable,
+#   oppo.debug.night.exif.index, oppo.debug.mic.disable
+# ---------------------------------------------------------------------------
+oppo.debug.                                     u:object_r:oplus_camera_prop:s0
+oppo.dump.                                      u:object_r:oplus_camera_prop:s0
+oplus.dump.                                     u:object_r:oplus_camera_prop:s0
+oppo.night.process.enable                       u:object_r:oplus_camera_prop:s0
+oppo.starry.process.enable                      u:object_r:oplus_camera_prop:s0
+oppo.rawsensor.test                             u:object_r:oplus_camera_prop:s0
+
+# ---------------------------------------------------------------------------
+# Cross-subsystem handshakes driven by the camera app.
+#   sys.oppo.multibrightness / oppo.multibits.dimming.support - screen-flash
+#     brightness boost, read by the display + light HALs
+#   oppo.multimedia.record.conflict - audio/record conflict flag shared with
+#     the media stack
+# ---------------------------------------------------------------------------
+sys.oppo.multibrightness                        u:object_r:oplus_camera_prop:s0
+oppo.multibits.dimming.support                  u:object_r:oplus_camera_prop:s0
+oppo.multimedia.record.conflict                 u:object_r:oplus_camera_prop:s0
+
+# ---------------------------------------------------------------------------
+# RAW-capture whitelist.  Set on the system side, consumed by camerahalserver
+# to decide which packages may request raw sensor formats.
+# ---------------------------------------------------------------------------
+persist.vendor.camera.privapp.list              u:object_r:oplus_camera_prop:s0

@@ -1,0 +1,20 @@
+# com.oppo.camera is platform-signed and installed as a priv-app, so the
+# default plat_seapp_contexts rule
+#   user=_app seinfo=platform domain=platform_app
+# lands it in platform_app.  (No sharedUserId in its manifest, so it is not
+# system_app.)
+
+# The app publishes capture-session state through oppo.camera.* / oplus.camera.*
+# and reads the ro.camera.* feature flags back.  set_prop implies get_prop.
+set_prop(platform_app, oplus_camera_prop)
+
+# Slogan ("Shot on realme" watermark) HAL client.  The app bundles
+# libOppoSloganClient.so / libSloganJni.so, which call
+# vendor::oplus::hardware::camera::slogan::V1_0::ISlogan::getService() in-process.
+# hal_client_domain gives it hal_slogan_hwservice:hwservice_manager find and the
+# binder_call pair defined in ../vendor/hal_opluscameraslogan.te.
+hal_client_domain(platform_app, hal_slogan)
+
+# Reaching a HIDL service at all needs the hwbinder plumbing.  MediaTek's
+# base/vendor/app.te already grants hwbinder_use() and hwservicemanager_prop to
+# appdomain, so nothing further is required here.

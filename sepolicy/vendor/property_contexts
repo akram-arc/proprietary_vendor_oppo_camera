@@ -1,0 +1,26 @@
+# Vendor-namespaced OPLUS camera properties.
+#
+# vendor_property_contexts is validated by check_prop_prefix: only
+# vendor. / ro.vendor. / persist.vendor. / odm. / ro.odm. / persist.odm. /
+# ctl.vendor. / ro.boot. / ro.hardware. prefixes are accepted here.  Everything
+# else (oppo.camera.*, sys.oppo.camera.*, ro.camera.*) is labelled in
+# ../private/property_contexts instead.
+#
+# Already labelled elsewhere - do NOT duplicate:
+#   vendor.debug.camera.        -> vendor_mtk_emcamera_prop (MediaTek)
+#   ro.vendor.mtk_cam_*         -> vendor_mtk_camera_prop   (MediaTek)
+#   ro.vendor.mtk_zsdhdr_support, ro.vendor.hdr10plus.enable,
+#   ro.vendor.mtk_slow_motion_support, ro.vendor.mtk_video_hevc_enc_support,
+#   ro.vendor.mtk_camera_app_version -> vendor_mtk_camera_prop (MediaTek)
+
+# Written by camerahalserver, read by the app and cameraserver.
+# Covers vendor.oppo.camera.project (sensor/project name consumed by the
+# remosaic + dual-cam calibration plugins) and the OPLUS tuning switches.
+vendor.oppo.camera.                     u:object_r:vendor_oplus_camera_prop:s0
+vendor.oplus.camera.                    u:object_r:vendor_oplus_camera_prop:s0
+
+# High-resolution capture mode toggle (set in oppocamera.mk).
+vendor.oppo.highres                     u:object_r:vendor_oplus_camera_prop:s0
+
+# Camera-restart-on-crash flag.
+persist.vendor.oppo.restart             u:object_r:vendor_oplus_camera_prop:s0

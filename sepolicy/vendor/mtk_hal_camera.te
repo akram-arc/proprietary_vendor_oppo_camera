@@ -1,0 +1,28 @@
+# ==========================================================================
+# camerahalserver additions for the OPLUS camera plugins.
+# ==========================================================================
+#
+# The OPLUS blobs in this vendor tree are all loaded *inside* camerahalserver,
+# so they inherit the mtk_hal_camera domain rather than getting their own:
+#   libfasteningPlugin / libremosaiclib / libremosaic_wrapper /
+#     libSonyIMX471RmscLibrary  - IMX471 remosaic
+#   libarcsoft_dualcam_wt_{calibration,verification} / libcalibverifyW_T /
+#     libmpbase             - wide+tele dual-cam calibration
+#   libMegviiHumBokehPost-mtk / libmegface_rt_bokeh /
+#     libVDDualCameraBlurless  - bokeh
+#   libacdk / libaf6133{,e} / libRbsFlow / libvtclib*  - 3A/AF/RBS
+#
+# Almost everything they need (ion, apusys/vpu/mdla, mnt_vendor_file,
+# /data/vendor/camera_dump, hal_allocator, hal_graphics_allocator, thermal) is
+# already granted by device/mediatek/sepolicy_vndr/base/vendor/mtk_hal_camera.te,
+# and the persist-partition calibration blobs by
+# device/realme/RM6785/sepolicy/vendor/mtk_hal_camera.te.  Only the OPLUS
+# property namespaces are missing.
+
+# vendor.oppo.camera.project is published here for the remosaic and dual-cam
+# calibration plugins; the OPLUS tuning switches are read back on every request.
+set_prop(mtk_hal_camera, vendor_oplus_camera_prop)
+
+# App-side capture state: which package owns the session (oppo.camera.packname),
+# the selected mode, and the raw/YUV dump switches the plugins honour.
+get_prop(mtk_hal_camera, oplus_camera_prop)

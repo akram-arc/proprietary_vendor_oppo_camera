@@ -1,0 +1,81 @@
+# ==========================================================================
+# vendor.oplus.hardware.camera.slogan@1.0::ISlogan/internal-0
+# /odm/bin/hw/camerasloganserver  (odm/etc/init/camerasloganserver.rc)
+# ==========================================================================
+#
+# Renders the OPLUS/realme "Shot on" slogan watermark onto a captured frame.
+# com.oppo.camera stages a YUV frame, publishes its path in
+# oplus.camera.slogan.yuvpath, then calls ISlogan::setSloganBuffer() and hands
+# the server the buffer/destination fd.  The implementation
+# (/odm/lib64/hw/vendor.oplus.hardware.camera.slogan@1.0-impl.so) blends the
+# watermark in and dumps to /data/vendor/camera_dump.
+
+type hal_opluscameraslogan, domain;
+type hal_opluscameraslogan_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(hal_opluscameraslogan)
+hal_server_domain(hal_opluscameraslogan, hal_slogan)
+
+# Publish ISlogan on hwservicemanager and let clients find it.
+# Grants: add_hwservice(hal_slogan_server, hal_slogan_hwservice) plus
+#         allow hal_slogan_client hal_slogan_hwservice:hwservice_manager find.
+hal_attribute_hwservice(hal_slogan, hal_slogan_hwservice)
+binder_call(hal_slogan_client, hal_slogan_server)
+binder_call(hal_slogan_server, hal_slogan_client)
+
+# Talk to hwservicemanager to register, and read the "which HALs are up" props.
+hwbinder_use(hal_opluscameraslogan)
+get_prop(hal_opluscameraslogan, hwservicemanager_prop)
+
+# The composition path needs shared memory (hidl_memory) for the frame buffers.
+hal_client_domain(hal_opluscameraslogan, hal_allocator)
+
+# Frame buffers reach the watermark blend as dmabuf/ion fds minted by
+# camerahalserver and relayed through the app, so the fd owner has to be
+# accepted; binder_call() also covers the ":fd use" pair.
+#
+# NOT hal_client_domain(hal_opluscameraslogan, hal_camera): that would put this
+# domain in the hal_camera attribute, which carries
+#   allow hal_camera camera_device:chr_file rw_file_perms;   (plat_private)
+# and therefore trips
+#   neverallow { halserverdomain -hal_camera_server } camera_device:chr_file *;
+# in the monolithic builds (sepolicy.recovery / sepolicy_neverallows) - this is
+# a halserverdomain, unlike the other hal_camera clients (dumpstate, factory,
+# aee_aedv).  Stock sidesteps it with a raw
+#   allow hal_opluscameraslogan hal_camera_hwservice:hwservice_manager find;
+# which is itself rejected here by the build_test_only neverallow inside
+# hal_attribute_hwservice.
+#
+# Neither is actually needed: neither /odm/bin/hw/camerasloganserver nor
+# vendor.oplus.hardware.camera.slogan@1.0-impl.so contains any camera interface
+# descriptor string, and HIDL getService() needs one as a literal - so nothing
+# here ever looks a camera HAL up on hwservicemanager.  libcamera_metadata is
+# linked only to parse metadata blobs handed in over ISlogan.
+binder_call(hal_opluscameraslogan, mtk_hal_camera)
+binder_call(mtk_hal_camera, hal_opluscameraslogan)
+
+# Graphics buffers for the watermark blend.
+allow hal_opluscameraslogan ion_device:chr_file rw_file_perms;
+allow hal_opluscameraslogan dmabuf_system_heap_device:chr_file r_file_perms;
+
+# Feature/debug switches (oppo.dump.slogan.png, oplus.camera.slogan.yuvpath).
+get_prop(hal_opluscameraslogan, oplus_camera_prop)
+get_prop(hal_opluscameraslogan, vendor_oplus_camera_prop)
+
+# The frame and the output file arrive as fds passed over HwBinder by the
+# camera app - the HAL never opens the app's storage itself.
+allow hal_opluscameraslogan platform_app:fd use;
+
+# ...but it does stat/traverse the path from oplus.camera.slogan.yuvpath to
+# check whether the staged YUV exists (ISlogan::sloganFileExist).
+# storage_file:dir search is already granted to every domain by
+# device/mediatek/sepolicy_vndr/base/vendor/domain.te.
+allow hal_opluscameraslogan storage_file:lnk_file read;
+allow hal_opluscameraslogan mnt_user_file:dir search;
+allow hal_opluscameraslogan mnt_user_file:lnk_file read;
+allow hal_opluscameraslogan system_data_file:dir getattr;
+
+# Debug dumps land in /data/vendor/camera_dump, shared with camerahalserver.
+# The directory type and its file_contexts entry come from MediaTek.
+allow hal_opluscameraslogan vendor_camera_dump_file:dir create_dir_perms;
+allow hal_opluscameraslogan vendor_camera_dump_file:file create_file_perms;

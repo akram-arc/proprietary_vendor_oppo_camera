@@ -1,0 +1,9 @@
+# vendor.oplus.hardware.camera.slogan@1.0::ISlogan/internal-0
+#
+# Declared in the system_ext *public* policy rather than in vendor/ so that both
+# sides of the interface can be expressed:
+#   - camerasloganserver (vendor)  -> hal_slogan_server
+#   - com.oppo.camera (system_ext) -> hal_slogan_client
+#
+# Creates hal_slogan, hal_slogan_client and hal_slogan_server.
+hal_attribute(slogan);

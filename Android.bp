@@ -1,0 +1,820 @@
+//
+// Automatically generated file. DO NOT MODIFY
+//
+
+soong_namespace {
+    imports: [
+        "vendor/realme/RM6785",
+        "device/realme/RM6785",
+        "vendor/oppo/camera",
+        "hardware/mediatek",
+        "hardware/mediatek/libmtkperf_client",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libMegviiHumBokehPost-mtk",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/vendor/lib64/libMegviiHumBokehPost-mtk.so",
+            ],
+            shared_libs: [
+                "libmegface_rt_bokeh",
+                "liblog",
+                "libEGL",
+                "libGLESv3",
+                "libdl",
+                "libz",
+                "libm",
+                "libc",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    soc_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libVDDualCameraBlurless",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/vendor/lib64/libVDDualCameraBlurless.so",
+            ],
+            shared_libs: [
+                "liblog",
+                "libm",
+                "libdl",
+                "libc",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    soc_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libacdk",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/vendor/lib64/libacdk.so",
+            ],
+            shared_libs: [
+                "libcutils",
+                "libimageio",
+                "libcam.iopipe",
+                "libmtkcam_stdutils",
+                "libmtkcam_imgbuf",
+                "libcam.halsensor",
+                "libmtkcam_metadata",
+                "libhardware",
+                "libutils",
+                "libmtkcam_fwkutils",
+                "libmtkcam_modulehelper",
+                "libion",
+                "libion_mtk",
+                "libmtkcam_metastore",
+                "libJpgEncPipe",
+                "liblog",
+                "libmtkcam_ulog",
+                "libc++",
+                "libc",
+                "libm",
+                "libdl",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    soc_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libaf6133",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/vendor/lib64/libaf6133.so",
+            ],
+            shared_libs: [
+                "liblog",
+                "libcutils",
+                "libc++",
+                "libc",
+                "libm",
+                "libdl",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    soc_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libaf6133e",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/vendor/lib64/libaf6133e.so",
+            ],
+            shared_libs: [
+                "liblog",
+                "libcutils",
+                "libc++",
+                "libc",
+                "libm",
+                "libdl",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    soc_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libmegface_rt_bokeh",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/vendor/lib64/libmegface_rt_bokeh.so",
+            ],
+            shared_libs: [
+                "libm",
+                "liblog",
+                "libdl",
+                "libc",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    soc_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libmmprofile",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/vendor/lib64/libmmprofile.so",
+            ],
+            shared_libs: [
+                "libcutils",
+                "liblog",
+                "libc++",
+                "libc",
+                "libm",
+                "libdl",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    soc_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libvtclib",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/vendor/lib64/libvtclib.so",
+            ],
+            shared_libs: [
+                "liblog",
+                "libcutils",
+                "libc++",
+                "libc",
+                "libm",
+                "libdl",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    soc_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libvtclib_sala1008",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/vendor/lib64/libvtclib_sala1008.so",
+            ],
+            shared_libs: [
+                "liblog",
+                "libcutils",
+                "libc++",
+                "libc",
+                "libm",
+                "libdl",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    soc_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libvpuapi.mtk",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/system_ext/lib64/libvpuapi.mtk.so",
+            ],
+            shared_libs: [
+                "libion",
+                "liblog",
+                "libutils",
+                "libcutils",
+                "libhidlbase",
+                "libfmq",
+                "vendor.mediatek.hardware.vpu@1.0",
+                "android.hidl.allocator@1.0",
+                "android.hidl.memory@1.0",
+                "libhidlmemory",
+                "libc++",
+                "libc",
+                "libm",
+                "libdl",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    system_ext_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "vendor.mediatek.hardware.vpu@1.0",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/system_ext/lib64/vendor.mediatek.hardware.vpu@1.0.so",
+            ],
+            shared_libs: [
+                "libhidlbase",
+                "liblog",
+                "libutils",
+                "libcutils",
+                "libc++",
+                "libc",
+                "libm",
+                "libdl",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    system_ext_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "vendor.oplus.hardware.camera.slogan@1.0-impl",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/odm/lib64/hw/vendor.oplus.hardware.camera.slogan@1.0-impl.so",
+            ],
+            shared_libs: [
+                "liblog",
+                "libutils",
+                "libcutils",
+                "libcamera_metadata",
+                "libhidlbase",
+                "libhidltransport",
+                "libion",
+                "libion_mtk",
+                "vendor.oplus.hardware.camera.slogan@1.0",
+                "libmtkcam_stdutils",
+                "libc++",
+                "libc",
+                "libm",
+                "libdl",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    relative_install_path: "hw",
+    prefer: true,
+    device_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libRbsFlow",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/odm/lib64/libRbsFlow.so",
+            ],
+            shared_libs: [
+                "libMcClient",
+                "libcutils",
+                "libc",
+                "libm",
+                "libdl",
+                "liblog",
+                "libc++",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    device_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libSonyIMX471RmscLibrary",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/odm/lib64/libSonyIMX471RmscLibrary.so",
+            ],
+            shared_libs: [
+                "liblog",
+                "libc",
+                "libm",
+                "libdl",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    device_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libalipay_factory",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/odm/lib64/libalipay_factory.so",
+            ],
+            shared_libs: [
+                "libcutils",
+                "libutils",
+                "liblog",
+                "libMcClient",
+                "libc++",
+                "libc",
+                "libm",
+                "libdl",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    device_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_dualcam_wt_calibration",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/odm/lib64/libarcsoft_dualcam_wt_calibration.so",
+            ],
+            shared_libs: [
+                "libmpbase",
+                "libcalibverifyW_T",
+                "liblog",
+                "libc",
+                "libm",
+                "libdl",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    device_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_dualcam_wt_verification",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/odm/lib64/libarcsoft_dualcam_wt_verification.so",
+            ],
+            shared_libs: [
+                "libmpbase",
+                "libcalibverifyW_T",
+                "liblog",
+                "libc",
+                "libm",
+                "libdl",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    device_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libcalibverifyW_T",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/odm/lib64/libcalibverifyW_T.so",
+            ],
+            shared_libs: [
+                "libz",
+                "libdl",
+                "libm",
+                "liblog",
+                "libc",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    device_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libfasteningPlugin",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/odm/lib64/libfasteningPlugin.so",
+            ],
+            shared_libs: [
+                "liblog",
+                "libutils",
+                "libcutils",
+                "libmtkcam_stdutils",
+                "libmtkcam_modulehelper",
+                "libremosaiclib",
+                "libremosaic_wrapper",
+                "libSonyIMX471RmscLibrary",
+                "libc++",
+                "libc",
+                "libm",
+                "libdl",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    device_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libremosaic_wrapper",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/odm/lib64/libremosaic_wrapper.so",
+            ],
+            shared_libs: [
+                "liblog",
+                "libutils",
+                "libcutils",
+                "libc++",
+                "libc",
+                "libm",
+                "libdl",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    device_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libremosaiclib",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/odm/lib64/libremosaiclib.so",
+            ],
+            shared_libs: [
+                "liblog",
+                "libc",
+                "libm",
+                "libdl",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    device_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "vendor.oplus.hardware.camera.slogan@1.0",
+    owner: "oppo",
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: [
+                "proprietary/odm/lib64/vendor.oplus.hardware.camera.slogan@1.0.so",
+            ],
+            shared_libs: [
+                "libhidlbase",
+                "liblog",
+                "libutils",
+                "libcutils",
+                "libc++",
+                "libc",
+                "libm",
+                "libdl",
+            ],
+        },
+    },
+    compile_multilib: "64",
+    prefer: true,
+    device_specific: true,
+}
+
+android_app_import {
+    name: "OppoCamera",
+    owner: "oppo",
+    apk: "proprietary/system/priv-app/OppoCamera/OppoCamera.apk",
+    certificate: "platform",
+    dex_preopt: {
+        enabled: false,
+    },
+    privileged: true,
+}
+
+dex_import {
+    name: "coloros-support-wrapper",
+    owner: "oppo",
+    jars: [
+        "proprietary/system/framework/coloros-support-wrapper.jar",
+    ],
+}
+
+dex_import {
+    name: "main-framework",
+    owner: "oppo",
+    jars: [
+        "proprietary/system/framework/main-framework.jar",
+    ],
+}
+
+dex_import {
+    name: "main-services",
+    owner: "oppo",
+    jars: [
+        "proprietary/system/framework/main-services.jar",
+    ],
+}
+
+dex_import {
+    name: "oplus-framework",
+    owner: "oppo",
+    jars: [
+        "proprietary/system/framework/oplus-framework.jar",
+    ],
+}
+
+dex_import {
+    name: "oplus-services",
+    owner: "oppo",
+    jars: [
+        "proprietary/system/framework/oplus-services.jar",
+    ],
+}
+
+dex_import {
+    name: "com.oppo.camera.unit.sdk",
+    owner: "oppo",
+    jars: [
+        "proprietary/system_ext/framework/com.oppo.camera.unit.sdk.jar",
+    ],
+    system_ext_specific: true,
+}
+
+sh_binary {
+    name: "lib3a.ccu.ddr",
+    owner: "oppo",
+    src: "proprietary/vendor/bin/lib3a.ccu.ddr",
+    filename: "lib3a.ccu.ddr",
+    soc_specific: true,
+}
+
+sh_binary {
+    name: "lib3a.ccu.dm",
+    owner: "oppo",
+    src: "proprietary/vendor/bin/lib3a.ccu.dm",
+    filename: "lib3a.ccu.dm",
+    soc_specific: true,
+}
+
+sh_binary {
+    name: "lib3a.ccu.pm",
+    owner: "oppo",
+    src: "proprietary/vendor/bin/lib3a.ccu.pm",
+    filename: "lib3a.ccu.pm",
+    soc_specific: true,
+}
+
+sh_binary {
+    name: "libccu_gc02k0_mipi_raw.ddr",
+    owner: "oppo",
+    src: "proprietary/vendor/bin/libccu_gc02k0_mipi_raw.ddr",
+    filename: "libccu_gc02k0_mipi_raw.ddr",
+    soc_specific: true,
+}
+
+sh_binary {
+    name: "libccu_gc02m0_mipi_mono.ddr",
+    owner: "oppo",
+    src: "proprietary/vendor/bin/libccu_gc02m0_mipi_mono.ddr",
+    filename: "libccu_gc02m0_mipi_mono.ddr",
+    soc_specific: true,
+}
+
+sh_binary {
+    name: "libccu_gc2375h_mipi_raw_19661.ddr",
+    owner: "oppo",
+    src: "proprietary/vendor/bin/libccu_gc2375h_mipi_raw_19661.ddr",
+    filename: "libccu_gc2375h_mipi_raw_19661.ddr",
+    soc_specific: true,
+}
+
+sh_binary {
+    name: "libccu_imx471_mipi_raw1.ddr",
+    owner: "oppo",
+    src: "proprietary/vendor/bin/libccu_imx471_mipi_raw1.ddr",
+    filename: "libccu_imx471_mipi_raw1.ddr",
+    soc_specific: true,
+}
+
+sh_binary {
+    name: "libccu_imx682_mipi_raw.ddr",
+    owner: "oppo",
+    src: "proprietary/vendor/bin/libccu_imx682_mipi_raw.ddr",
+    filename: "libccu_imx682_mipi_raw.ddr",
+    soc_specific: true,
+}
+
+sh_binary {
+    name: "libccu_ov02b10_mipi_raw.ddr",
+    owner: "oppo",
+    src: "proprietary/vendor/bin/libccu_ov02b10_mipi_raw.ddr",
+    filename: "libccu_ov02b10_mipi_raw.ddr",
+    soc_specific: true,
+}
+
+sh_binary {
+    name: "libccu_ov02b1b_mipi_mono.ddr",
+    owner: "oppo",
+    src: "proprietary/vendor/bin/libccu_ov02b1b_mipi_mono.ddr",
+    filename: "libccu_ov02b1b_mipi_mono.ddr",
+    soc_specific: true,
+}
+
+sh_binary {
+    name: "libccu_ov8856_mipi_raw.ddr",
+    owner: "oppo",
+    src: "proprietary/vendor/bin/libccu_ov8856_mipi_raw.ddr",
+    filename: "libccu_ov8856_mipi_raw.ddr",
+    soc_specific: true,
+}
+
+sh_binary {
+    name: "libccu_s5k3p9sp_mipi_raw.ddr",
+    owner: "oppo",
+    src: "proprietary/vendor/bin/libccu_s5k3p9sp_mipi_raw.ddr",
+    filename: "libccu_s5k3p9sp_mipi_raw.ddr",
+    soc_specific: true,
+}
+
+sh_binary {
+    name: "libccu_s5kgm1sp_mipi_raw.ddr",
+    owner: "oppo",
+    src: "proprietary/vendor/bin/libccu_s5kgm1sp_mipi_raw.ddr",
+    filename: "libccu_s5kgm1sp_mipi_raw.ddr",
+    soc_specific: true,
+}
+
+sh_binary {
+    name: "libccu_s5kgw1_mipi_raw.ddr",
+    owner: "oppo",
+    src: "proprietary/vendor/bin/libccu_s5kgw1_mipi_raw.ddr",
+    filename: "libccu_s5kgw1_mipi_raw.ddr",
+    soc_specific: true,
+}
+
+sh_binary {
+    name: "libccu_sala_wide_ov8856.ddr",
+    owner: "oppo",
+    src: "proprietary/vendor/bin/libccu_sala_wide_ov8856.ddr",
+    filename: "libccu_sala_wide_ov8856.ddr",
+    soc_specific: true,
+}
+
+sh_binary {
+    name: "libccu_salaa_qtech_main_s5kgm1sp.ddr",
+    owner: "oppo",
+    src: "proprietary/vendor/bin/libccu_salaa_qtech_main_s5kgm1sp.ddr",
+    filename: "libccu_salaa_qtech_main_s5kgm1sp.ddr",
+    soc_specific: true,
+}
+
+sh_binary {
+    name: "libccu_sarter_qtech_main_s5kgm1sp.ddr",
+    owner: "oppo",
+    src: "proprietary/vendor/bin/libccu_sarter_qtech_main_s5kgm1sp.ddr",
+    filename: "libccu_sarter_qtech_main_s5kgm1sp.ddr",
+    soc_specific: true,
+}

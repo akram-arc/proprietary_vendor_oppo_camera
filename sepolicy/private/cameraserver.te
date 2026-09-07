@@ -1,0 +1,4 @@
+# cameraserver forwards the OPLUS capture-mode properties down to
+# camerahalserver (mode/scene/HDR selection is passed as properties rather than
+# metadata by the OPLUS pipeline) and clears them when a session ends.
+set_prop(cameraserver, oplus_camera_prop)
