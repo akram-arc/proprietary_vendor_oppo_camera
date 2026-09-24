@@ -6,8 +6,6 @@ system_ext/framework/com.oppo.camera.unit.sdk.jar
 system/framework/coloros-support-wrapper.jar
 system/framework/main-framework.jar
 system/framework/oplus-framework.jar
-system/framework/main-services.jar
-system/framework/oplus-services.jar
 
 system_ext/lib64/libvpuapi.mtk.so
 system_ext/lib64/vendor.mediatek.hardware.vpu@1.0.so

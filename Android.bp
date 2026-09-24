@@ -651,26 +651,10 @@ dex_import {
 }
 
 dex_import {
-    name: "main-services",
-    owner: "oppo",
-    jars: [
-        "proprietary/system/framework/main-services.jar",
-    ],
-}
-
-dex_import {
     name: "oplus-framework",
     owner: "oppo",
     jars: [
         "proprietary/system/framework/oplus-framework.jar",
-    ],
-}
-
-dex_import {
-    name: "oplus-services",
-    owner: "oppo",
-    jars: [
-        "proprietary/system/framework/oplus-services.jar",
     ],
 }
 

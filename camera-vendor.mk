@@ -190,9 +190,7 @@ PRODUCT_PACKAGES += \
     vendor.oplus.hardware.camera.slogan@1.0 \
     coloros-support-wrapper \
     main-framework \
-    main-services \
     oplus-framework \
-    oplus-services \
     com.oppo.camera.unit.sdk \
     lib3a.ccu.ddr \
     lib3a.ccu.dm \
