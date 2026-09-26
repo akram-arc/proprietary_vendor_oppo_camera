@@ -3,8 +3,6 @@
 
     <library name = "com.oppo.camera.unit.sdk"
         file = "/system_ext/framework/com.oppo.camera.unit.sdk.jar" />
-    <library name = "coloros-support-wrapper"
-        file = "/system/framework/coloros-support-wrapper.jar" />
     <library name = "main-framework"
         file = "/system/framework/main-framework.jar" />
     <library name = "oplus-framework"

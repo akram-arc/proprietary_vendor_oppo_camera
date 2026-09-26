@@ -3,7 +3,6 @@
 #system/priv-app/OppoGallery2/OppoGallery2.apk   (No need now)
 system/priv-app/OppoCamera/OppoCamera.apk
 system_ext/framework/com.oppo.camera.unit.sdk.jar
-system/framework/coloros-support-wrapper.jar
 system/framework/main-framework.jar
 system/framework/oplus-framework.jar
 

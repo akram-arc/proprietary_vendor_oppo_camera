@@ -635,14 +635,6 @@ android_app_import {
 }
 
 dex_import {
-    name: "coloros-support-wrapper",
-    owner: "oppo",
-    jars: [
-        "proprietary/system/framework/coloros-support-wrapper.jar",
-    ],
-}
-
-dex_import {
     name: "main-framework",
     owner: "oppo",
     jars: [

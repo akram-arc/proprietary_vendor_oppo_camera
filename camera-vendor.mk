@@ -188,7 +188,6 @@ PRODUCT_PACKAGES += \
     libremosaiclib \
     OppoCamera \
     vendor.oplus.hardware.camera.slogan@1.0 \
-    coloros-support-wrapper \
     main-framework \
     oplus-framework \
     com.oppo.camera.unit.sdk \

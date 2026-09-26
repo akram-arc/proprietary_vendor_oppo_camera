@@ -6,14 +6,12 @@ LOCAL_PATH := vendor/oppo/camera
 
 PRODUCT_PACKAGES += \
     oplus-framework \
-    main-framework \
-    coloros-support-wrapper
+    main-framework 
 
 
 PRODUCT_BOOT_JARS += \
     oplus-framework \
-    main-framework \
-    coloros-support-wrapper
+    main-framework 
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/permissions/privapp-permissions-oppocam.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-oppocam.xml 
