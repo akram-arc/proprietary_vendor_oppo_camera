@@ -5,20 +5,18 @@ LOCAL_PATH := vendor/oppo/camera
 
 
 PRODUCT_PACKAGES += \
-    oplus-framework \
-    main-framework \
-    coloros-support-wrapper
+    oplus-fwk
 
 
 PRODUCT_BOOT_JARS += \
-    oplus-framework \
-    main-framework \
-    coloros-support-wrapper
+    oplus-fwk
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/permissions/privapp-permissions-oppocam.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-oppocam.xml 
-
-
+    $(LOCAL_PATH)/configs/permissions/privapp-permissions-oppocam.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-oppocam.xml \
+    $(LOCAL_PATH)/configs/permissions/com.oplus.camera.unit.sdk.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/com.oplus.camera.unit.sdk.xml \
+    $(LOCAL_PATH)/configs/permissions/hiddenapi-package-whitelist-oplus-camera.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/hiddenapi-package-whitelist-oplus-camera.xml \
+    $(LOCAL_PATH)/configs/permissions/oplus_camera_default_grant_permissions_list.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/oplus_camera_default_grant_permissions_list.xml \
+    $(LOCAL_PATH)/configs/permissions/privapp-permissions-com.oplus.camera.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-com.oplus.camera.xml
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
@@ -34,14 +32,14 @@ PRODUCT_PRODUCT_PROPERTIES += \
     ro.camera.videoeis.enable=1 \
     ro.mtk_cam_dualzoom_support=1 \
     ro.mtk_cam_stereo_camera_support=1 \
-    ro.oplus.system.camera.name=com.oppo.camera \
+    ro.oplus.system.camera.name=com.oplus.camera \
     ro.vendor.mtk_camera_app_version=3 \
     ro.camera.temperature.limit=420 \
     ro.vendor.mtk_zsdhdr_support=1 \
     ro.vendor.hdr10plus.enable=1 \
     ro.vendor.mtk_slow_motion_support=1 \
     ro.vendor.mtk_video_hevc_enc_support=1 \
-    oppo.camera.packname=com.oppo.camera \
+    oplus.camera.packname=com.oplus.camera \
     vendor.oplus.camera.low_ram=0 \
     vendor.oppo.highres=0 \
     persist.vendor.oppo.restart=0

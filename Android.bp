@@ -624,9 +624,9 @@ cc_prebuilt_library_shared {
 }
 
 android_app_import {
-    name: "OppoCamera",
+    name: "OplusCamera",
     owner: "oppo",
-    apk: "proprietary/system/priv-app/OppoCamera/OppoCamera.apk",
+    apk: "proprietary/system/priv-app/OppoCamera/OplusCamera.apk",
     certificate: "platform",
     dex_preopt: {
         enabled: false,
@@ -635,34 +635,27 @@ android_app_import {
 }
 
 dex_import {
-    name: "coloros-support-wrapper",
+    name: "oplus-fwk",
     owner: "oppo",
     jars: [
-        "proprietary/system/framework/coloros-support-wrapper.jar",
+        "proprietary/system/framework/oplus-fwk.jar",
     ],
 }
 
 dex_import {
-    name: "main-framework",
+    name: "com.oplus.camera.unit.sdk",
     owner: "oppo",
     jars: [
-        "proprietary/system/framework/main-framework.jar",
+        "proprietary/system_ext/framework/com.oplus.camera.unit.sdk.jar",
     ],
+    system_ext_specific: true,
 }
 
 dex_import {
-    name: "oplus-framework",
+    name: "com.oplus.camera.unit.sdk.adapter",
     owner: "oppo",
     jars: [
-        "proprietary/system/framework/oplus-framework.jar",
-    ],
-}
-
-dex_import {
-    name: "com.oppo.camera.unit.sdk",
-    owner: "oppo",
-    jars: [
-        "proprietary/system_ext/framework/com.oppo.camera.unit.sdk.jar",
+        "proprietary/system_ext/framework/com.oplus.camera.unit.sdk.adapter.jar",
     ],
     system_ext_specific: true,
 }

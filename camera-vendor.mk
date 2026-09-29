@@ -186,12 +186,11 @@ PRODUCT_PACKAGES += \
     libfasteningPlugin \
     libremosaic_wrapper \
     libremosaiclib \
-    OppoCamera \
+    OplusCamera \
     vendor.oplus.hardware.camera.slogan@1.0 \
-    coloros-support-wrapper \
-    main-framework \
-    oplus-framework \
-    com.oppo.camera.unit.sdk \
+    oplus-fwk \
+    com.oplus.camera.unit.sdk \
+    com.oplus.camera.unit.sdk.adapter \
     lib3a.ccu.ddr \
     lib3a.ccu.dm \
     lib3a.ccu.pm \
